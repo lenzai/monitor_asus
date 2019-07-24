@@ -1,7 +1,7 @@
-
+#!/bin/bash
 for ip in `cat cache/ap_list.txt`; do
   for interface in `ssh admin@$ip /sbin/ifconfig | grep eth| tail -n2| cut -d " " -f 1`; do
-    grep $ip cache/ap_mac.txt
+    grep "$ip $interface" cache/ap_mac.txt
     ssh admin@$ip /usr/sbin/wl -i $interface assoclist | cut -d " " -f 2;
   done;
 done;
